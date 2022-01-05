@@ -32,4 +32,14 @@ class _PageHomeState extends State<PageHome> {
     }
   }
 
+  Future<void> ajouter(String value) async{
+    if(villes.contains(value)){
+      return; //Anti doublon
+    }
+    villes.add(value);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList("villes", villes);
+    obtenir();
+  }
+
 }
