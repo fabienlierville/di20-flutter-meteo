@@ -13,12 +13,27 @@ class _PageHomeState extends State<PageHome> {
   String? villeChoisie;
 
   @override
+  void initState() {
+    obtenir();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Météo"),
       ),
-      body: Center(),
+      body: Center(
+        child: ElevatedButton(
+          child: Text("Ajouter Ville"),
+          onPressed: (){
+            print(villes);
+            ajouter("Rouen");
+            print(villes);
+          },
+        ),
+      ),
     );
   }
 
