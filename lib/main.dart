@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:meteo/models/device_info.dart';
 import 'package:meteo/pages/page_home.dart';
 
 void main() async{
@@ -24,7 +25,7 @@ void main() async{
 
   LocationData _locationData =  await location.getLocation();
   print("Location = ${_locationData.latitude},${_locationData.longitude}");
-
+  DeviceInfo.locationData = _locationData;
 
   runApp(const MyApp());
 }

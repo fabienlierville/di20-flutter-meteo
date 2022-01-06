@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meteo/models/device_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PageHome extends StatefulWidget {
@@ -31,6 +32,7 @@ class _PageHomeState extends State<PageHome> {
             print(villes);
             ajouter("Rouen");
             print(villes);
+            print(DeviceInfo.locationData.toString());
           },
         ),
       ),
