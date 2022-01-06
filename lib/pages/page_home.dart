@@ -50,7 +50,9 @@ class _PageHomeState extends State<PageHome> {
               ),
               // Ville du Device
               ListTile(
-                onTap: null,
+                onTap: (){
+                  getMeteo(DeviceInfo.ville!);
+                },
                 title: CustomText(DeviceInfo.ville!, color: Colors.white,textAlign: TextAlign.center,),
               ),
               // Listes des villes SharedPreferences
@@ -60,7 +62,9 @@ class _PageHomeState extends State<PageHome> {
                       itemBuilder: (context, index){
                         String ville = villes[index];
                         return ListTile(
-                          onTap: null,
+                          onTap: (){
+                            getMeteo(ville);
+                          },
                           title: CustomText(ville, color: Colors.white,textAlign: TextAlign.center,),
                           trailing: IconButton(
                             onPressed: (){
@@ -154,4 +158,13 @@ class _PageHomeState extends State<PageHome> {
         }
     );
   }
+
+  Future<void> getMeteo(String ville) async{
+    //1. conversion de la ville en lat/long
+
+    //2. Interroger l'api meteo
+
+
+  }
+
 }
