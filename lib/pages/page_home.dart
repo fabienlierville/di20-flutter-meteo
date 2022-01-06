@@ -57,4 +57,11 @@ class _PageHomeState extends State<PageHome> {
     obtenir();
   }
 
+  Future<void> supprimer(String value) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    villes.remove(value);
+    await prefs.setStringList("villes", villes);
+    obtenir();
+  }
+
 }
