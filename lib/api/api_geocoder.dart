@@ -16,7 +16,7 @@ class ApiGeocoder{
 
     if(response.statusCode == 200){
       String body = await response.stream.bytesToString();
-      List<Map<String,dynamic>> result = jsonDecode(body);
+      List<dynamic> result = jsonDecode(body);
       return result.first["name"];
     }
 

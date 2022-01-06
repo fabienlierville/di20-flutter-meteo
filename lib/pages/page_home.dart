@@ -33,6 +33,7 @@ class _PageHomeState extends State<PageHome> {
             ajouter("Rouen");
             print(villes);
             print(DeviceInfo.locationData.toString());
+            print(DeviceInfo.ville);
           },
         ),
       ),
