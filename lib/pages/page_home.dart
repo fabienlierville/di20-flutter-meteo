@@ -16,10 +16,13 @@ class PageHome extends StatefulWidget {
 class _PageHomeState extends State<PageHome> {
   List<String> villes = [];
   String? villeChoisie;
+  Meteo? meteo;
+
 
   @override
   void initState() {
     obtenir();
+    getMeteo(DeviceInfo.ville!);
     super.initState();
   }
 
@@ -170,8 +173,12 @@ class _PageHomeState extends State<PageHome> {
     if(coordinates != null){
       //2. Interroger l'api meteo
       ApiWeather weather = ApiWeather(apiKey: "959d1296a89c3365a20b001a440c4eb3");
-      Meteo? meteo = await weather.getCurrentWeather(latitude: coordinates["latitude"], longitude: coordinates["longitude"]);
-      print(meteo!.humidity);
+      Meteo? meteoApi = await weather.getCurrentWeather(latitude: coordinates["latitude"], longitude: coordinates["longitude"]);
+      if(meteoApi != null){
+        setState(() {
+          meteo = meteoApi;
+        });
+      }
     }
 
 
