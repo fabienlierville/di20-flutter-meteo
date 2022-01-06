@@ -62,6 +62,12 @@ class _PageHomeState extends State<PageHome> {
                         return ListTile(
                           onTap: null,
                           title: CustomText(ville, color: Colors.white,textAlign: TextAlign.center,),
+                          trailing: IconButton(
+                            onPressed: (){
+                              supprimer(ville);
+                            },
+                            icon: Icon(Icons.delete, color: Colors.white,),
+                          ),
                         );
                       }
                   )
