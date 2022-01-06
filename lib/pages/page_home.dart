@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meteo/api/api_geocoder.dart';
 import 'package:meteo/models/device_info.dart';
+import 'package:meteo/widgets/custom_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PageHome extends StatefulWidget {
@@ -25,6 +26,28 @@ class _PageHomeState extends State<PageHome> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Météo"),
+      ),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.blue,
+          child: Column(
+            children: [
+
+              Expanded(
+                  child: ListView.builder(
+                    itemCount: villes.length,
+                      itemBuilder: (context, index){
+                        String ville = villes[index];
+                        return ListTile(
+                          onTap: null,
+                          title: CustomText(ville, color: Colors.white,textAlign: TextAlign.center,),
+                        );
+                      }
+                  )
+              )
+            ],
+          ),
+        ),
       ),
       body: Center(
         child: ElevatedButton(
