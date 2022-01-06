@@ -20,12 +20,12 @@ class Meteo{
     required this.humidity
   });
 
-  static FromJson(Map<String,dynamic> json){
+  static Meteo FromJson(Map<String,dynamic> json){
     return Meteo(
       weatherMain: json["weather"][0]["main"],
       weatherDescription: json["weather"][0]["description"],
       weatherIcon: json["weather"][0]["icon"],
-      temperature: json["main"]["temp"],
+      temperature: double.tryParse(json["main"]["temp"].toString()) ?? 0,
       temperatureMin: double.tryParse(json["main"]["temp_min"].toString()) ?? 0,
       temperatureMax: double.tryParse(json["main"]["temp_max"].toString()) ?? 0,
       pressure: double.tryParse(json["main"]["pressure"].toString()) ?? 0,
