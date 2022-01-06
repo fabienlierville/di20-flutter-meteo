@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meteo/api/api_geocoder.dart';
+import 'package:meteo/api/api_weather.dart';
 import 'package:meteo/models/device_info.dart';
+import 'package:meteo/models/meteo.dart';
 import 'package:meteo/widgets/custom_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -161,8 +163,16 @@ class _PageHomeState extends State<PageHome> {
 
   Future<void> getMeteo(String ville) async{
     //1. conversion de la ville en lat/long
+    ApiGeocoder geocoder = ApiGeocoder(apiKey: "959d1296a89c3365a20b001a440c4eb3");
+    Map<String,dynamic>? coordinates = await geocoder.getCoordinatesFromAddress(ville: ville);
+    print(coordinates);
 
-    //2. Interroger l'api meteo
+    if(coordinates != null){
+      //2. Interroger l'api meteo
+      ApiWeather weather = ApiWeather(apiKey: "959d1296a89c3365a20b001a440c4eb3");
+      Meteo? meteo = await weather.getCurrentWeather(latitude: coordinates["latitude"], longitude: coordinates["longitude"]);
+      print(meteo!.humidity);
+    }
 
 
   }

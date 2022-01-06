@@ -14,7 +14,7 @@ class ApiWeather{
   /// Donne un objet Meteo selon les coordonnéees GPS
   ///
   Future<Meteo?> getCurrentWeather({required double latitude, required double longitude}) async{
-    String completeUrl = "${baseUrl}/weather/lat=${latitude}&lon=${longitude}&appid=${apiKey}&lang=fr&units=metric";
+    String completeUrl = "${baseUrl}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&lang=fr&units=metric";
     print(completeUrl);
     http.Request request = http.Request('GET', Uri.parse(completeUrl));
 
