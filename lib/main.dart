@@ -22,6 +22,10 @@ void main() async{
     }
   }
 
+  LocationData _locationData =  await location.getLocation();
+  print("Location = ${_locationData.latitude},${_locationData.longitude}");
+
+
   runApp(const MyApp());
 }
 
