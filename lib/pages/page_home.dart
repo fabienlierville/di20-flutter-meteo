@@ -32,7 +32,28 @@ class _PageHomeState extends State<PageHome> {
           color: Colors.blue,
           child: Column(
             children: [
-
+              // Header
+              DrawerHeader(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CustomText("Villes", fontSize: 30.0, color: Colors.white,),
+                      ElevatedButton(
+                          onPressed: null,
+                          child: CustomText("Ajouter une ville", color: Colors.blue,),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        ),
+                      )
+                    ],
+                  )
+              ),
+              // Ville du Device
+              ListTile(
+                onTap: null,
+                title: CustomText(DeviceInfo.ville!, color: Colors.white,textAlign: TextAlign.center,),
+              ),
+              // Listes des villes SharedPreferences
               Expanded(
                   child: ListView.builder(
                     itemCount: villes.length,
