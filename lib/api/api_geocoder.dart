@@ -9,8 +9,13 @@ class ApiGeocoder{
 
   ApiGeocoder({required this.apiKey});
 
+  ///
+  /// Donne la ville selon les coordonnéees GPS
+  ///
   Future<String?> getAdressFromCoordinates({required double latitude, required double longitude}) async{
-    http.Request request = http.Request('GET', Uri.parse("${baseUrlReverse}lat=${latitude}&lon=${longitude}&appid=${apiKey}"));
+    String completeUrl = "${baseUrlReverse}lat=${latitude}&lon=${longitude}&appid=${apiKey}";
+    print(completeUrl);
+    http.Request request = http.Request('GET', Uri.parse(completeUrl));
 
     http.StreamedResponse response = await request.send();
 
@@ -21,7 +26,28 @@ class ApiGeocoder{
     }
 
     return null;
+  }
 
+  ///
+  /// Donne les coordonnées GPS selon la ville
+  /// {lat:4343243,lon:4453435433}
+  Future<Map<String,dynamic>?> getCoordinatesFromAddress({required String ville}) async{
+    String completeUrl = "${baseUrlAdress}q=${ville}&appid=${apiKey}";
+    print(completeUrl);
+    http.Request request = http.Request('GET', Uri.parse(completeUrl));
+
+    http.StreamedResponse response = await request.send();
+
+    if(response.statusCode == 200){
+      String body = await response.stream.bytesToString();
+      List<dynamic> result = jsonDecode(body);
+      return {
+        "latitude" : result.first["lat"],
+        "longitude" : result.first["lon"]
+      };
+    }
+
+    return null;
 
   }
 
