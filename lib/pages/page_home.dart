@@ -3,6 +3,7 @@ import 'package:meteo/api/api_geocoder.dart';
 import 'package:meteo/api/api_weather.dart';
 import 'package:meteo/models/device_info.dart';
 import 'package:meteo/models/meteo.dart';
+import 'package:meteo/my_flutter_app_icons.dart';
 import 'package:meteo/widgets/custom_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -85,20 +86,59 @@ class _PageHomeState extends State<PageHome> {
           ),
         ),
       ),
-      body: Center(
-        child: ElevatedButton(
-          child: Text("Ajouter Ville"),
-          onPressed: () async{
-            print(villes);
-            ajouter("Rouen");
-            print(villes);
-            print(DeviceInfo.locationData.toString());
-            print(DeviceInfo.ville);
-
-            ApiGeocoder geocoder = ApiGeocoder(apiKey: "959d1296a89c3365a20b001a440c4eb3");
-            Map<String,dynamic>? coordinates = await geocoder.getCoordinatesFromAddress(ville: "Bangok");
-            print(coordinates);
-          },
+      body: (meteo == null)
+      ? Center(child: CustomText("Pas de méteo disponible"),)
+      : Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(meteo!.getMainWeatherImage()),
+                fit: BoxFit.cover)),
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(villeChoisie ?? "", style: TextStyle(fontSize: 30, color: Colors.white),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text("${meteo!.temperature.toStringAsFixed(1)} °C",style: TextStyle(fontSize: 60, color: Colors.white),),
+                Image.asset(meteo!.getIconeImage())
+              ],
+            ),
+            Text(meteo!.weatherMain, style: TextStyle(fontSize: 30, color: Colors.white),),
+            Text(meteo!.weatherDescription, style: TextStyle(fontSize: 25, color: Colors.white),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Icon(MyFlutterApp.temperatire, color: Colors.white,),
+                    Text(meteo!.pressure.toInt().toString(), style: TextStyle(fontSize: 20, color: Colors.white),),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(MyFlutterApp.droplet, color: Colors.white),
+                    Text(meteo!.humidity.toInt().toString(), style: TextStyle(fontSize: 20, color: Colors.white),),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(MyFlutterApp.arrow_upward, color: Colors.white),
+                    Text(meteo!.temperatureMax.toStringAsFixed(1), style: TextStyle(fontSize: 20, color: Colors.white),),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(MyFlutterApp.arrow_downward, color: Colors.white),
+                    Text(meteo!.temperatureMin.toStringAsFixed(1), style: TextStyle(fontSize: 20, color: Colors.white),),
+                  ],
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
@@ -177,6 +217,7 @@ class _PageHomeState extends State<PageHome> {
       if(meteoApi != null){
         setState(() {
           meteo = meteoApi;
+          villeChoisie = ville;
         });
       }
     }

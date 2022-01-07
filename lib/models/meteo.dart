@@ -32,4 +32,23 @@ class Meteo{
       humidity: double.tryParse(json["main"]["humidity"].toString()) ?? 0,
     );
   }
+
+  String getMainWeatherImage(){
+    if(weatherIcon.contains("n")){
+      return "assets/img/n.jpg";
+    }else{
+      if(weatherIcon.contains("01") || weatherIcon.contains("02") || weatherIcon.contains("03")){
+        return "assets/img/d1.jpg";
+      }else{
+        return "assets/img/d2.jpg";
+      }
+    }
+  }
+
+  String getIconeImage(){
+    String logo = weatherIcon.replaceAll("d", "").replaceAll("n", "");
+    return "assets/img/$logo.png";
+  }
+
+
 }
